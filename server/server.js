@@ -1,11 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const routes = require("./routes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-const routes = require("./routes");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -14,7 +13,15 @@ if (process.env.NODE_ENV === "production") {
 }
 app.use(routes);
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(
+    process.env.MONGODB_URI || "mongodb://localhost/google-books-search",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+    }
+);
 
 app.listen(PORT, () => {
     console.log(`API Server now listening on PORT ${PORT}!`);

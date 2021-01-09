@@ -10,3 +10,5 @@ router.get("/", (req, res) => {
         })
         .catch((err) => res.json({ error: err }));
 });
+
+module.exports = router;
