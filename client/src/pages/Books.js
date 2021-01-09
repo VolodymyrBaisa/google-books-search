@@ -4,6 +4,7 @@ import API from "../helpers/API";
 
 import MessageBox from "../components/MessageBox";
 import SearchForm from "../components/SearchForm";
+import BookList from "../components/BookList";
 
 export default class Books extends Component {
     constructor(props) {
@@ -48,6 +49,40 @@ export default class Books extends Component {
             });
     }
 
+    saveBook(book) {
+        const bookData = {
+            title: book.title,
+            authors: book.authors,
+            infoLink: book.infoLink,
+            img: book.imageLinks.smallThumbnail,
+            description: book.description,
+        };
+
+        API.saveBook(bookData)
+            .then((response) => {
+                this.setState({
+                    notif: {
+                        isActive: true,
+                        type: "success",
+                        message: `${bookData.title} Successfully Saved`,
+                    },
+                });
+
+                setTimeout(() => {
+                    this.props.history.push("/saved");
+                }, 3000);
+            })
+            .catch((err) => {
+                this.setState({
+                    notif: {
+                        isActive: true,
+                        type: "danger",
+                        message: "Something Went Wrong! Please try again!",
+                    },
+                });
+            });
+    }
+
     render() {
         const { books, searchValue, notif } = this.state;
         return (
@@ -58,6 +93,14 @@ export default class Books extends Component {
                     handleChange={(e) => this.handleChange(e)}
                     search={() => this.search()}
                 />
+                {books.length > 0 ? (
+                    <BookList
+                        books={books}
+                        saveBook={(book) => this.saveBook(book)}
+                    />
+                ) : (
+                    <p className="no-data">No Books Found</p>
+                )}
             </div>
         );
     }
