@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./style.css";
-
 const BookItem = (props) => {
     const { book, saveBook, deleteBook, saved } = props;
 
