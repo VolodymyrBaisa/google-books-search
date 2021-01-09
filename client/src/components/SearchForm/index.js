@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./style.css";
-
 const SearchForm = (props) => {
     const { handleChange, search, searchValue } = props;
 
