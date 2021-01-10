@@ -65,7 +65,7 @@ export default class Books extends Component {
                     notif: {
                         isActive: true,
                         type: "success",
-                        message: `${bookData.title} Successfully Saved`,
+                        message: `${response.title} Successfully Saved`,
                     },
                 });
 
