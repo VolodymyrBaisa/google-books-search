@@ -16,6 +16,56 @@ export default class Saved extends Component {
         };
     }
 
+    componentDidMount() {
+        API.getBooks()
+            .then((response) => {
+                this.setState({
+                    savedBooks: response.data,
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    notif: {
+                        isActive: true,
+                        type: "danger",
+                        message: "Something Went Wrong! Please try again!",
+                    },
+                });
+            });
+    }
+
+    deleteBook(Id, Index) {
+        this.setState((state) => {
+            const savedBooks = state.savedBooks.filter(
+                (item, j) => Index !== j
+            );
+
+            return {
+                savedBooks,
+            };
+        });
+
+        API.deleteBook(Id)
+            .then((response) => {
+                this.setState({
+                    notif: {
+                        isActive: true,
+                        type: "success",
+                        message: "Successfully Deleted!",
+                    },
+                });
+            })
+            .catch((err) => {
+                this.setState({
+                    notif: {
+                        isActive: true,
+                        type: "danger",
+                        message: "Something Went Wrong! Please try again!",
+                    },
+                });
+            });
+    }
+
     render() {
         const { savedBooks, notif } = this.state;
 

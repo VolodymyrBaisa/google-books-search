@@ -55,7 +55,7 @@ export default class Books extends Component {
             title: book.title,
             authors: book.authors,
             infoLink: book.infoLink,
-            img: book.imageLinks.smallThumbnail,
+            img: book.imageLinks ? book.imageLinks.smallThumbnail : "",
             description: book.description,
         };
 
@@ -65,7 +65,7 @@ export default class Books extends Component {
                     notif: {
                         isActive: true,
                         type: "success",
-                        message: `${response.title} Successfully Saved`,
+                        message: `${bookData.title} Successfully Saved`,
                     },
                 });
 
