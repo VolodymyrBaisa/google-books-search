@@ -1,0 +1,7 @@
+{
+    "name": "google-books-search",
+    "version": "1.0.0",
+    "scripts": {
+        "postinstall": "npm run start --prefix server"
+    }
+}
