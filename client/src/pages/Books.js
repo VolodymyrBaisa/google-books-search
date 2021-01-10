@@ -28,6 +28,7 @@ export default class Books extends Component {
     search() {
         API.searchBooks(this.state.searchValue)
             .then((response) => {
+                console.log(response);
                 this.setState({
                     books: response.data,
                     searchValue: "",

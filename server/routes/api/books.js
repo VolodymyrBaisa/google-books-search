@@ -12,8 +12,11 @@ router.get("/", (req, res) => {
 });
 
 router.post("/search", (req, res) => {
+    if (!req.body.search) {
+        res.json({ error: "Search is empty" });
+        return;
+    }
     let search = req.body.search.replace(/\s/g, "+");
-
     axios
         .get(`https://www.googleapis.com/books/v1/volumes?q=${search}`)
         .then((response) => {
